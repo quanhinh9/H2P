@@ -1,4 +1,5 @@
 //Một số hàm trên asymptote của Quân.T nhóm Quán Hình.
+//quanhinh9@gmail.com
 //https://www.facebook.com/groups/205466756603509/
 
 //Phép vị tự
