@@ -162,14 +162,6 @@ pair h2kapoint(pair A,pair B,pair C)
 	return extension(B,h2circumcenter(O,C,A),C,h2circumcenter(O,A,B));
 }
 
-//Trung điểm cung nhỏ BC của (K,KB).
-pair h2midarc(pair K, pair B, pair C)
-{
-	pair M=midpoint(B--C);
-	pair j=rotate((angle(M-K)-angle(B-K))*90/pi,K)*B;
-	return reflect(K,j)*B;
-}
-
 //Schiffler point Sc
 pair h2scpoint(pair A,pair B,pair C)
 {	
