@@ -1,6 +1,7 @@
 //Một số hàm asymptote.
-//Version 1.0 of 09/07/2019
-//Quân.T nhóm Quán Hình. email: quanhinh9@gmail.com
+//Version 1.0 of 09/07/2019.
+//Quân.T - nhóm Quán Hình.
+//Email: quanhinh9@gmail.com
 //https://www.facebook.com/groups/205466756603509/
 
 //Phép vị tự
