@@ -1,31 +1,40 @@
 //Một số hàm trên asymptote của Quân.T nhóm Quán Hình.
+//https://www.facebook.com/groups/205466756603509/
 
-//Phép vị tự 
-transform scale(pair center, real k)
+//Phép vị tự
+
+transform h2scale(pair center, real k)
 {
 	return shift(center)*scale(k)*shift(-center);
 }
 
+//Phép nghịch đảo
+
+pair h2inverse(pair O, real k, pair M)
+{
+	return (O + k*unit(M-O)/abs(M-O));
+}
+
 //Trọng tâm G
-pair centroid(pair A,pair B,pair C)
+pair h2centroid(pair A,pair B,pair C)
 {
 	return (A+B+C)/3;
 }
 
 //Hình chiếu vuông góc
-pair project(pair P, pair A, pair B)
+pair h2project(pair P, pair A, pair B)
 {
 	return midpoint(P--reflect(A,B)*P);
 }
 
 //Trực tâm H
-pair orthocenter(pair A, pair B, pair C)
+pair h2orthocenter(pair A, pair B, pair C)
 {
 	return extension(B, reflect(C,A)*B, C, reflect(A,B)*C);
 }
 
 //Tâm ngoại tiếp O
-pair circumcenter(pair A, pair B, pair C)
+pair h2circumcenter(pair A, pair B, pair C)
 {
 	pair mAB=midpoint(A--B);
 	pair mAC=midpoint(A--C);
@@ -33,140 +42,149 @@ pair circumcenter(pair A, pair B, pair C)
 }
 
 //Tâm nội tiếp I
-pair incenter(pair A, pair B, pair C)
+pair h2incenter(pair A, pair B, pair C)
 {
 	return extension(A, A+dir(A--B,A--C), B, B+dir(B--A,B--C));
 }
 
-//Tâm bàng tiếp Ia, Ib, Ic
-pair excenter(pair A, pair B, pair C)
+//Tâm bàng tiếp Ia
+pair h2excenter(pair A, pair B, pair C)
   {
    	return extension(B, B+rotate(90)*dir(B--A,B--C),C, C+rotate(90)*dir(C--A,C--B));
   }
   
-//Điểm liên hợp đẳng giác của P đối với tam giác ABC  
-pair isoconj(pair P,pair A,pair B,pair C)
+//Điểm liên hợp đẳng giác của P đối với tam giác ABC
+pair h2isoconj(pair P,pair A,pair B,pair C)
 {
-	pair I=incenter(A,B,C);
+	pair I=h2incenter(A,B,C);
 	return extension(B,reflect(B,I)*P,C,reflect(C,I)*P);
 }  
 
-//Tâm đường tròn Mixtilinear nội
-pair inmixcenter(pair A, pair B, pair C)
+//Tâm đường tròn Mixtilinear nôi
+pair h2inmixcenter(pair A, pair B, pair C)
 {
-	pair I=incenter(A, B,C);
+	pair I=h2incenter(A, B,C);
 	pair Z=extension(A,B,I,rotate(90,I)*A);
 	return extension(A,I,Z,rotate(90,Z)*A);
 }
 
 //Tiếp điểm của đường tròn Mixtilinear nội
-pair inmixt(pair A, pair B, pair C)
+pair h2inmixt(pair A, pair B, pair C)
 {
-	pair I=incenter(A,B,C);
-	pair P=midpoint(I--excenter(A,B,C));
-	pair O=circumcenter(A,B,C);
+	pair I=h2incenter(A,B,C);
+	pair P=midpoint(I--h2excenter(A,B,C));
+	pair O=h2circumcenter(A,B,C);
 	pair Q=rotate(180,O)*P;
-	return extension(Q,I,O,inmixcenter(A,B,C));
+	return extension(Q,I,O,h2inmixcenter(A,B,C));
 }
 
 //Đường tròn Mixtilinear nội
-path inmixcircle(pair A, pair B, pair C)
+path h2inmixcircle(pair A, pair B, pair C)
 {
-	pair I=incenter(A, B,C);
+	pair I=h2incenter(A, B,C);
 	pair Z=extension(A,B,I,rotate(90,I)*A);
 	pair K=extension(A,I,Z,rotate(90,Z)*A);
 	return circle(K,abs(K-Z));
 }
 
-//Tâm đường tròn Mixtilinear ngoại
-pair exmixcenter(pair A, pair B, pair C)
+//Tâm Mixtilinear ngoại
+pair h2exmixcenter(pair A, pair B, pair C)
 {
-	pair Ia=excenter(A, B,C);
+	pair Ia=h2excenter(A, B,C);
 	pair Z=extension(A,B,Ia,rotate(90,Ia)*A);
 	return extension(A,Ia,Z,rotate(90,Z)*A);
 }
 
-//Tiếp điểm của đường tròn Mixtilinear ngoại
-pair exmixt(pair A, pair B, pair C)
+//Tiếp điểm Mixtilinear ngoại
+
+pair h2exmixt(pair A, pair B, pair C)
 {
-	pair Ia=excenter(A, B,C);
-	pair P=midpoint(incenter(A,B,C)--Ia);
-	pair O=circumcenter(A,B,C);
+	pair Ia=h2excenter(A, B,C);
+	pair P=midpoint(h2incenter(A,B,C)--Ia);
+	pair O=h2circumcenter(A,B,C);
 	pair Q=rotate(180,O)*P;
-	return extension(Q,Ia,O,exmixcenter(A,B,C));
+	return extension(Q,Ia,O,h2exmixcenter(A,B,C));
 }
 
 //Đường tròn Mixtilinear ngoại
-path exmixcircle(pair A, pair B, pair C)
+path h2exmixcircle(pair A, pair B, pair C)
 {
-	pair Ia=excenter(A, B,C);
+	pair Ia=h2excenter(A, B,C);
 	pair Z=extension(A,B,Ia,rotate(90,Ia)*A);
 	pair Ka=extension(A,Ia,Z,rotate(90,Z)*A);
 	return circle(Ka,abs(Ka-Z));
 }
 
-//Điểm Feuerback nội
-pair fepoint(pair A, pair B, pair C)
+//Điểm Feuerback nội Fe
+pair h2fepoint(pair A, pair B, pair C)
 {
 	pair M=midpoint(B--C);
-	pair I=incenter(A, B,C);
+	pair I=h2incenter(A, B,C);
 	pair D=midpoint(I--reflect(B,C)*I);
 	pair D1=reflect(A,I)*D;
 	return reflect(I,reflect(M,D1)*I)*D1;
 }
 
-//Điểm Gergonne Ge
-pair gepoint(pair A,pair B,pair C)
+//Gergonne Point Ge
+pair h2gepoint(pair A,pair B,pair C)
 {
-	pair I=incenter(A,B,C);
-	return extension(B,project(I,C,A),C,project(I,A,B));
+	pair I=h2incenter(A,B,C);
+	return extension(B,h2project(I,C,A),C,h2project(I,A,B));
 }
 
-//Tâm của đường tròn 9 điểm Nine Point Center
-pair n9point(pair A,pair B,pair C)
+//Nine Point Center N9
+pair h2n9point(pair A,pair B,pair C)
 {
-	return midpoint(orthocenter(A,B,C)--circumcenter(A,B,C));
+	return midpoint(h2orthocenter(A,B,C)--h2circumcenter(A,B,C));
 }
 
-//Điểm Nagel Na
-pair napoint(pair A,pair B,pair C)
+//Nagel Point Na
+pair h2napoint(pair A,pair B,pair C)
 {
-	pair E=project(excenter(B,C,A),C,A);
-	pair F=project(excenter(C,A,B),A,B);
+	pair E=h2project(h2excenter(B,C,A),C,A);
+	pair F=h2project(h2excenter(C,A,B),A,B);
 	return extension(B,E,C,F);
 }
 
-//Điểm Spieker Sp
-pair sppoint(pair A,pair B,pair C)
+//Spieker point Sp
+pair h2sppoint(pair A,pair B,pair C)
 {	
 	pair Ma=midpoint(B--C);
 	pair Mb=midpoint(C--A);
 	pair Mc=midpoint(A--B);
-	return incenter(Ma,Mb,Mc);
+	return h2incenter(Ma,Mb,Mc);
 }
 
-//Điểm Kosnita Ka
-pair kapoint(pair A,pair B,pair C)
+//Kosnita Point Ka
+pair h2kapoint(pair A,pair B,pair C)
 {	
-	pair O=circumcenter(A,B,C);
-	return extension(B,circumcenter(O,C,A),C,circumcenter(O,A,B));
+	pair O=h2circumcenter(A,B,C);
+	return extension(B,h2circumcenter(O,C,A),C,h2circumcenter(O,A,B));
 }
 
-//Điểm Schiffler Sc
-pair scpoint(pair A,pair B,pair C)
-{	
-	pair I=incenter(A,B,C);
-	return extension(orthocenter(A,B,C),circumcenter(A,B,C),orthocenter(I,B,C),circumcenter(I,B,C));
-}
-
-//Điểm Lemoine Le (điểm Symmedian)
-pair lepoint(pair A,pair B,pair C)
-{	
-	return isoconj(centroid(A,B,C),A,B,C);
-}
-
-//Điểm Humpty
-pair hmpoint(pair A, pair B, pair C)
+//Trung điểm cung nhỏ BC của (K,KB).
+pair h2midarc(pair K, pair B, pair C)
 {
-	return project(orthocenter(A,B,C),A,midpoint(B--C));
+	pair M=midpoint(B--C);
+	pair j=rotate((angle(M-K)-angle(B-K))*90/pi,K)*B;
+	return reflect(K,j)*B;
+}
+
+//Schiffler point Sc
+pair h2scpoint(pair A,pair B,pair C)
+{	
+	pair I=h2incenter(A,B,C);
+	return extension(h2orthocenter(A,B,C),h2circumcenter(A,B,C),h2orthocenter(I,B,C),h2circumcenter(I,B,C));
+}
+
+//Lemoine point Le
+pair h2lepoint(pair A,pair B,pair C)
+{	
+	return h2isoconj(h2centroid(A,B,C),A,B,C);
+}
+
+//Humpty Point Hm
+pair h2hmpoint(pair A, pair B, pair C)
+{
+	return h2project(h2orthocenter(A,B,C),A,midpoint(B--C));
 }
