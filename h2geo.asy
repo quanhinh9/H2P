@@ -4,14 +4,12 @@
 //https://www.facebook.com/groups/205466756603509/
 
 //Phép vị tự
-
 transform h2scale(pair center, real k)
 {
 	return shift(center)*scale(k)*shift(-center);
 }
 
 //Phép nghịch đảo
-
 pair h2inverse(pair O, real k, pair M)
 {
 	return (O + k*unit(M-O)/abs(M-O));
