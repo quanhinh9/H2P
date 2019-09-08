@@ -3,6 +3,7 @@
 //Quân.T - nhóm Quán Hình.
 //Email: quanhinh9@gmail.com
 //https://www.facebook.com/groups/205466756603509/
+//ref: http://asymptote.sourceforge.net/doc/index.html
 
 //Phép vị tự
 transform h2scale(pair center, real k)
