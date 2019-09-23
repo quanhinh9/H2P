@@ -1,3 +1,21 @@
+//08 đường tròn Apollonius: PPL; PLL; PPC; PLC; PCC; LLC; LCC; CCC
+//Version 1.0 of 09/23/2019
+//http://asymptote.sourceforge.net/doc/index.html
+
+import geometry;
+
+//Khoảng cách từ điểm A đến đường thẳng m
+real g2lengthPL(point A, line m)
+{
+	point H=projection(m)*A;
+	return abs(A-H);
+}
+
+circle g2circlePL(point O, line m)
+{
+	return circle(O,g2lengthPL(O,m));
+}
+
 //Đường tròn tâm O, bán kinh OA
 circle g2circle1p(point O, point A)
 {
