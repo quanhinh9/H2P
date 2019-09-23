@@ -11,6 +11,7 @@ real g2lengthPL(point A, line m)
 	return abs(A-H);
 }
 
+//Đường tròn tâm O và tiếp xúc với đường thẳng m
 circle g2circlePL(point O, line m)
 {
 	return circle(O,g2lengthPL(O,m));
