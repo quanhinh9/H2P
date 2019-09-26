@@ -2,7 +2,9 @@
 //Version 1.1 of 09/20/2019
 //Quân.T nhóm Quán Hình. email: quanhinh9@gmail.com
 //https://www.facebook.com/groups/205466756603509/
+//Tham khảo:
 //http://asymptote.sourceforge.net/doc/index.html
+//http://www.piprime.fr/asymptote/
 
 //Phép vị tự
 
