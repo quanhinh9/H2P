@@ -1,21 +1,6 @@
-//08 đường tròn Apollonius: PPL; PLL; PPC; PLC; PCC; LLC; LCC; CCC
-//Version 1.0 of 09/23/2019
-//http://asymptote.sourceforge.net/doc/index.html
-
 import geometry;
 
-//Khoảng cách từ điểm A đến đường thẳng m
-real g2lengthPL(point A, line m)
-{
-	point H=projection(m)*A;
-	return abs(A-H);
-}
-
-//Đường tròn tâm O và tiếp xúc với đường thẳng m
-circle g2circlePL(point O, line m)
-{
-	return circle(O,g2lengthPL(O,m));
-}
+//Hàm real distance(point M, line l) trả lại khoảng cách từ điểm M đến đường thẳng l
 
 //Đường tròn tâm O, bán kinh OA
 circle g2circle1p(point O, point A)
@@ -23,38 +8,102 @@ circle g2circle1p(point O, point A)
 	return circle(O,abs(O-A));
 }
 
-//Tâm vị tự trong của (a) và (b)
-point g2inhomo(circle a, circle b)
-{
-	point A=a.C, B=b.C;
-	point P=intersectionpoint(a,(A--rotate(90,A)*B));
-	point Q=intersectionpoint(b,(B--rotate(90,B)*A));
-	point R=rotate(180,B)*Q;
-	return extension(A,B,P,Q);
-}
+//Đường tròn tâm O và tiếp xúc với đường thẳng m
 
-//Tâm vị tự ngoài của (a) và (b)
-point g2exhomo(circle a, circle b)
+circle g2circlePL(point O, line m)
 {
-	point A=a.C, B=b.C;
-	point P=intersectionpoint(a,(A--rotate(90,A)*B));
-	point Q=intersectionpoint(b,(B--rotate(-90,B)*A));
-	point R=rotate(180,B)*Q;
-	return extension(A,B,P,Q);
-}
-
-//Đường tròn đi qua A, B và tiếp xúc với đường thẳng m
-//02
-circle[] g2PPL(point A, point B, line m)
-{
-	circle[] PPL;
-	int count=0;
-
-	point[] temp=intersectionpoints(parabola(A,m),parabola(B,m));
-	for (int n=0; n<temp.length; ++n)
+	circle pl;
+	if (O @ m) 
 	{
-		PPL[count]=g2circle1p(temp[n],A); ++count;
+		return pl;
 	}
-	return PPL;
+	else
+	{
+		pl=circle(O,distance(O,m));
+	}
+	return pl;
 }
 
+//Đường tròn đi qua A, B (không nằm trên m) và tiếp xúc với đường thẳng m
+circle[] g2ppl(point A, point B, line m)
+{
+	circle[] ppl;
+	if((A @ m) && (B @ m)) return ppl;
+	
+	if (A @ m)
+	{
+		int count=0;
+		point[] temp=intersectionpoints(parabola(B,m),perpendicular(A,m));
+		for (int n=0; n<temp.length; ++n)
+		{
+			ppl[count]=g2circle1p(temp[n],A); ++count;		
+		}
+	}
+	
+	else
+	{
+		if (B @ m)
+		{
+			int count=0;
+			point[] temp=intersectionpoints(parabola(A,m),perpendicular(B,m));
+			for (int n=0; n<temp.length; ++n)
+			{
+				ppl[count]=g2circle1p(temp[n],A); ++count;		
+			}
+		}
+		else
+		{
+			int count=0;
+			point[] temp=intersectionpoints(parabola(A,m),parabola(B,m));
+			for (int n=0; n<temp.length; ++n)
+			{
+				ppl[count]=g2circle1p(temp[n],A); ++count;		
+			}
+		}
+	}
+		
+	return ppl;	
+
+}
+
+//Đường tròn đi qua A và tiếp xúc với hai đường thẳng m, n
+
+circle[] g2pll(point A, line m, line n)
+{
+	circle[] pll;
+
+	if((A @ m) && (A @ n)) return pll;
+	
+	if (A @ m)
+	{
+		int count=0;
+		point[] temp=intersectionpoints(parabola(A,n),perpendicular(A,m));
+		for (int n=0; n<temp.length; ++n)
+		{
+			pll[count]=g2circle1p(temp[n],A); ++count;		
+		}
+	}
+	else
+	{
+		if (A @ n)
+		{
+			int count=0;
+			point[] temp=intersectionpoints(parabola(A,m),perpendicular(A,n));
+			for (int n=0; n<temp.length; ++n)
+			{
+				pll[count]=g2circle1p(temp[n],A); ++count;		
+			}
+		}
+		else
+		{
+			int count=0;
+			point[] temp=intersectionpoints(parabola(A,m),parabola(A,n));
+			for (int n=0; n<temp.length; ++n)
+			{
+				pll[count]=g2circle1p(temp[n],A); ++count;		
+			}
+		}
+	}
+	return pll;
+
+}
