@@ -9,7 +9,6 @@ circle g2circle1p(point O, point A)
 }
 
 //Đường tròn tâm O và tiếp xúc với đường thẳng m
-
 circle g2circlePL(point O, line m)
 {
 	circle pl;
@@ -24,7 +23,7 @@ circle g2circlePL(point O, line m)
 	return pl;
 }
 
-//Đường tròn đi qua A, B (không nằm trên m) và tiếp xúc với đường thẳng m
+//Đường tròn đi qua A, B và tiếp xúc với đường thẳng m
 circle[] g2ppl(point A, point B, line m)
 {
 	circle[] ppl;
