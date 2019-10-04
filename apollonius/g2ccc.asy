@@ -8,6 +8,7 @@
 
 import geometry;
 
+//Tâm vị tự nội
 point g2homoin(circle a, circle b)
 {
 	point A=a.C, B=b.C;
@@ -16,6 +17,7 @@ point g2homoin(circle a, circle b)
 	return intersectionpoint(line(A,B),line(P,Q));
 }
 
+//Tâm vị tự ngoại
 point g2homoex(circle a, circle b)
 {
 	point output;
@@ -29,6 +31,7 @@ point g2homoex(circle a, circle b)
 	return output;
 }
 
+//Trục vị tự của 03 đường tròn
 line g2ax(circle a, circle b, circle c)
 {
 	line x;
@@ -65,6 +68,7 @@ bool g2intersc(point A, point B, circle c)
 	else return false;
 }
 
+//Trả về đường tròn tiếp xúc trong với cả a, b, c
 circle[] g2cccin(circle a, circle b, circle c)
 {
 	circle[] CCCin;
@@ -90,6 +94,7 @@ circle[] g2cccin(circle a, circle b, circle c)
 	return CCCin;
 }
 
+//Trả về đường tròn tiếp xúc ngoài với cả a, b, c
 circle[] g2ccc(circle a, circle b, circle c)
 {
 	circle[] CCC;
